@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.juliaplatova.scamperapp.IdeaGeneratorViewModel
 
 import com.juliaplatova.scamperapp.QuoteProvider
 
@@ -35,7 +36,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun ScamperScreen() {
-    val quoteProvider = QuoteProvider()
+    val viewModel = IdeaGeneratorViewModel()
 
     var selectedLetter by remember { mutableStateOf<Char?>(null) }
     var verbs by remember { mutableStateOf<List<String>>(emptyList()) }
@@ -58,9 +59,9 @@ fun ScamperScreen() {
 
                 Button(
                     onClick = {
-                        quoteProvider.newRandomQuoteForCategory(letter)
-                        verbs = quoteProvider.getVerbs() ?: emptyList()
-                        quote = quoteProvider.getQuote() ?: ""
+                        viewModel.quoteProvider.newRandomQuoteForCategory(letter)
+                        verbs = viewModel.quoteProvider.getVerbs() ?: emptyList()
+                        quote = viewModel.quoteProvider.getQuote() ?: ""
 
                         selectedLetter = letter
                     },

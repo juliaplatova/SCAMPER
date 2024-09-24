@@ -24,8 +24,10 @@ kotlin {
     }
 
     sourceSets {
-        commonMain.dependencies {
-            //put your multiplatform dependencies here
+        val commonMain by getting {
+            dependencies {
+                implementation("org.kodein.di:kodein-di:7.18.0")
+            }
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

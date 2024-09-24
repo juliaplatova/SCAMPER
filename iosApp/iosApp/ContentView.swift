@@ -1,8 +1,8 @@
 import SwiftUI
 import shared
 
-struct ContentView: View {
-    let provider = QuoteProvider()
+struct IdeaGeneratorView: View {
+    let viewModel = IdeaGeneratorViewModel()
     
     @State private var selectedLetter: Character? = nil
     @State private var verbs: [String] = []
@@ -13,10 +13,10 @@ struct ContentView: View {
             HStack {
                 ForEach(["S", "C", "A", "M", "P", "E", "R"], id: \.self) { letter in
                     Button(action: {
-                        provider.doNewRandomQuoteForCategory(letter: String(letter).utf16.first!)
+                        viewModel.quoteProvider.doNewRandomQuoteForCategory(letter: String(letter).utf16.first!)
                         
-                        verbs = provider.getVerbs() ?? []
-                        quote = provider.getQuote()
+                        verbs = viewModel.quoteProvider.getVerbs() ?? []
+                        quote = viewModel.quoteProvider.getQuote()
                         
                         selectedLetter = Character(letter)
                     }) {
@@ -43,6 +43,12 @@ struct ContentView: View {
             Spacer()
         }
         .padding()
+    }
+}
+
+struct ContentView: View {
+    var body: some View {
+        IdeaGeneratorView()
     }
 }
 
